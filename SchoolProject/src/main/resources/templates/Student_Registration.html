@@ -32,8 +32,14 @@
             <div class="card card-4">
                 <div class="card-body">
                     <h2 class="title">Registration Form</h2>
-                    <form method="POST" action = "/addStudent">
+                    <form method="POST">
                         <div class="row row-space">
+                        <div class="col-2">
+                                <div class="input-group">
+                                    <label class="label">Roll Number</label>
+                                    <input class="input--style-4" type="text" name="id">
+                                </div>
+                            </div>
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">first name</label>
@@ -57,21 +63,18 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Gender</label>
-                                    <div class="p-t-10">
-                                        <label class="radio-container m-r-45">Male
-                                            <input type="radio" checked="checked" name="gender">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                        <label class="radio-container">Female
-                                            <input type="radio" name="gender">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                </div>
+                             <div class="input-group">
+                            <label class="label">Gender</label>
+                            <div class="rs-select2 js-select-simple select--no-search">
+                                <select name="gender">
+                                    <option disabled="disabled" selected="selected">Choose Gender</option>
+                                    <option>Male</option>
+                                    <option>Female</option>
+                                    <option>Other</option>
+                                </select>
+                                <div class="select-dropdown"></div>
                             </div>
+                        </div>
                         </div>
                         <div class="row row-space">
                             <div class="col-2">
@@ -88,7 +91,7 @@
                             </div>
                         </div>
                         <div class="input-group">
-                            <label class="label">Subject</label>
+                            <label class="label">Class</label>
                             <div class="rs-select2 js-select-simple select--no-search">
                                 <select name="classYear">
                                     <option disabled="disabled" selected="selected">Choose option</option>
@@ -101,8 +104,12 @@
                                 <div class="select-dropdown"></div>
                             </div>
                         </div>
-                        <div class="p-t-15">
-                            <button class="btn btn--radius-2 btn--blue" type="submit">Submit</button>
+                        <div class="form-group">
+                            <button class="btn btn--radius-1 btn--blue" type="submit"  formaction = "/addStudent">Submit</button>
+                            <button class="btn btn--radius-1 btn--blue" type="submit"  formaction = "/addStudent">Update</button>
+                            <button class="btn btn--radius-1 btn--blue" type="submit"  formaction = "/addStudent">Delete</button>
+                            <button class="btn btn--radius-1 btn--blue" type="submit"  formaction = "/getStudent">Retrieve</button>
+                            <button class="btn btn--radius-1 btn--blue" type="reset" >Reset</button>
                         </div>
                     </form>
                 </div>
@@ -120,7 +127,6 @@
     <!-- Main JS-->
     <script src="js/global.js"></script>
 
-</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</body>
 
 </html>
-<!-- end document-->

@@ -20,7 +20,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Student {
 	
-	public Student(Long id, String firstName, String lastName, Date birthdate, String gender, String email,
+	
+	public Student() {
+		super();
+	}
+	public Student(Integer id, String firstName, String lastName, Date birthdate, String gender, String email,
 			String phoneNumber, String classYear) {
 		super();
 		this.id = id;
@@ -32,16 +36,16 @@ public class Student {
 		this.phoneNumber = phoneNumber;
 		this.classYear = classYear;
 	}
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
-	private Long id;
+	private Integer id;
 	
 	@Column(name = "first_name")
 	private String firstName;
