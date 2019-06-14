@@ -12,10 +12,12 @@ import com.example.demo.repository.StudentRepository;
 
 @Service
 public class StudentDAOImpl implements StudentDAO {
-
 	@Autowired StudentRepository studentRepository;
 	@Override
 	public Student save(Student s) {
+		if(s.getFirstName().isEmpty() || s.getBirthdate().isEmpty()) {
+			s = null;
+		}
 		 return studentRepository.save(s);
 	}
 

@@ -24,7 +24,7 @@ public class Student {
 	public Student() {
 		super();
 	}
-	public Student(Integer id, String firstName, String lastName, Date birthdate, String gender, String email,
+	public Student(Integer id, String firstName, String lastName, String birthdate, String gender, String email,
 			String phoneNumber, String classYear) {
 		super();
 		this.id = id;
@@ -54,7 +54,7 @@ public class Student {
 	private String lastName;
 	
 	@Column(name = "birthdate")
-	private Date birthdate;
+	private String birthdate;
 	
 	@Column(name = "gender")
 	private String gender;
@@ -68,6 +68,14 @@ public class Student {
 	@Column(name = "class_year")
 	private String classYear;
 	
+	private boolean isAdmin;
+	
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
 	public String getFirstName() {
 		return firstName;
 	}
@@ -80,10 +88,10 @@ public class Student {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public Date getBirthdate() {
+	public String getBirthdate() {
 		return birthdate;
 	}
-	public void setBirthdate(Date birthdate) {
+	public void setBirthdate(String birthdate) {
 		this.birthdate = birthdate;
 	}
 	public String getGender() {

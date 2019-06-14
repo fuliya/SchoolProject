@@ -28,6 +28,7 @@ public class StudentController {
 @RequestMapping(value = "/getStudent")
 @ResponseBody
 public Optional<Student> retrieveStudent (int id){
-	return studentDAO.findOneStudent(id);
+	Optional<Student> findOneStudent = studentDAO.findOneStudent(id);
+	return findOneStudent;
 }
 }
