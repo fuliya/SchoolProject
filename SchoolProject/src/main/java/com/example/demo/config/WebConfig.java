@@ -29,7 +29,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
      @Autowired
      public void configureGlobal(AuthenticationManagerBuilder authenticationMgr) throws Exception {
          authenticationMgr.inMemoryAuthentication().withUser("employee").password("{noop}employee")
-             .authorities("ROLE_USER").and().withUser("javainuse").password("{noop}javainuse")
+             .authorities("ROLE_USER").and().withUser("admin").password("{noop}admin")
              .authorities("ROLE_USER", "ROLE_ADMIN");
      }
  }

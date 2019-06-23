@@ -2,10 +2,10 @@ package com.example.demo.controller;
 
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,9 +20,12 @@ public class StudentController {
  StudentDAO studentDAO;
 	
 @RequestMapping(value = "/addStudent", method =  RequestMethod.POST)
-@ResponseBody
-	public Student createStudent (Student s) {
-	return studentDAO.save(s);
+	public String createStudent (@Valid Student student) {
+	if(student !=null ) {
+	studentDAO.save(student);
+	}
+	 return "addSuccess";
+	 
 }
 
 @RequestMapping(value = "/getStudent")
