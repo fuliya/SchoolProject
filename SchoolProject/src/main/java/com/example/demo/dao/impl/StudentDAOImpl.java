@@ -37,7 +37,7 @@ public class StudentDAOImpl implements StudentDAO {
 	}
 
 	@Override
-	public List<Student> findAllStudent(Student s) {
+	public List<Student> findAllStudent() {
 		return (List<Student>)studentRepository.findAll();
 	}
 }

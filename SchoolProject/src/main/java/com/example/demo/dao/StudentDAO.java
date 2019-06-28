@@ -15,6 +15,6 @@ public interface StudentDAO {
 		
 	Optional findOneStudent (int id);
 	
-	List<Student> findAllStudent (Student s);
+	List<Student> findAllStudent ();
 	
 }
