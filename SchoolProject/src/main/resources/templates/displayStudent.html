@@ -1,17 +1,49 @@
-<html xmlns:th = "http://www.thymeleaf.org">
+<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Customer Manager</title>
+    <meta charset="utf-8" />
+    <title>All Student</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+
 </head>
 <body>
 <div align="center">
-    <h2>Customer Manager</h2>
-    <form method="get" action="search">
-        <input type="text" name="keyword" /> &nbsp;
-        <input type="submit" value="Search" />
+    <h2>Student</h2>
+    <form name = "EmployeeForm" method="GET">
+        <div class="row row-space">
+            <div class="col-2">
+                <div class="input-group">
+                    Find All Student By Class Year: <input class="input--style-4" type="text" name="classYear">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <button class="btn btn--radius-1 btn--blue" type="submit"  name = "submit" formaction = "/findAllStudent/classYear" >Submit</button>
+            <button class="btn btn--radius-1 btn--blue" type="reset" >Reset</button>
+        </div>
     </form>
+    <div align="center">
+        <form name = "EmployeeForm" method="GET">
+            <div class="row row-space">
+                <div class="col-2">
+                    <div class="input-group">
+                        Find All Student by First Name: <input class="input--style-4" type="text" name="firstName">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <button class="btn btn--radius-1 btn--blue" type="submit"  name = "submit" formaction = "/findAllStudent/firstName" >Submit</button>
+                <button class="btn btn--radius-1 btn--blue" type="reset" >Reset</button>
+            </div>
+        </form>
+
+    </div>
     <h3><a href="/registration">New Student</a></h3>
-    <table border="1" >
+    <h3><a href="/home">Back To Home</a></h3>
+    <!--<table border="1" id="todotable" class="display">
         <tr>
             <th>Roll Number</th>
             <th>First Name</th>
@@ -21,18 +53,20 @@
             <th>Date Of Birth</th>
             <th>Class</th>
             <th>gender</th>
+            <th>Admission Year</th>
             <th>Action</th>
         </tr>
-        
+
         <tr th:each="users : ${users}">
-            <td th:text= "${users.id}">id</td>
-            <td th:text= "${users.firstName}"></td>
-            <td th:text= "${users.lastName}"></td>
-            <td th:text= "${users.email}"></td>
-            <td th:text= "${users.phoneNumber}"></td>
-            <td th:text= "${users.birthdate}"></td>
-             <td th:text= "${users.classYear}"></td>
-             <td th:text= "${users.gender}"></td>
+            <td th:text="${users.id}">id</td>
+            <td th:text="${users.firstName}">firstName</td>
+            <td th:text="${users.lastName}">lastName</td>
+            <td th:text="${users.email}"></td>
+            <td th:text="${users.phoneNumber}"></td>
+            <td th:text="${users.birthdate}"></td>
+            <td th:text="${users.classYear}"></td>
+            <td th:text="${users.gender}"></td>
+            <td th:text="${users.batchYear}"></td>
             <td>
                 <a href="/edit?id=${customer.id}">Edit</a>
                 &nbsp;&nbsp;&nbsp;
@@ -40,9 +74,47 @@
             </td>
         </tr>
         </th:each>
+    </table>-->
+
+    <table border="0.5" id = "myTable" class = "display">
+        <thead>
+        <tr>
+            <th>Roll Number</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>E-mail</th>
+            <th>phone</th>
+            <th>Date Of Birth</th>
+            <th>Class</th>
+            <th>gender</th>
+            <th>Admission Year</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
     </table>
-</div>   
-<link rel="stylesheet" type="text/css" href="DataTables/datatables.min.css"/>
-<script type="text/javascript" src="static/js/jquery.dataTables.js"></script>
+    <script>
+        $(document).ready( function () {
+            var table = $('#myTable').DataTable({
+                "sAjaxSource": "/queryByPage",
+                'contentType': 'application/json',
+                "sAjaxDataProp": "",
+                "aoColumns": [
+                    { mData: 'id', "width": "1%"},
+                    { mData: 'firstName', "width": "1%" },
+                    { mData: 'lastName', "width": "1%" },
+                    { mData: 'birthdate', "width": "1%" },
+                    { mData: 'gender', "width": "1%" },
+                    { mData: 'email', "width": "1%" },
+                    { mData: 'phoneNumber', "width": "1%" },
+                    { mData: 'classYear', "width": "1%" },
+                    { mData: 'batchYear', "width": "1%" }
+                ]
+            })
+        });
+    </script>
+</div>
+
 </body>
 </html>

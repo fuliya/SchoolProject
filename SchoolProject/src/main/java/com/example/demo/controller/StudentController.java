@@ -5,50 +5,73 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import com.example.demo.Model.Subject;
+import com.example.demo.dao.SubjectDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.Model.Student;
 import com.example.demo.dao.StudentDAO;
+import org.springframework.web.bind.annotation.RestController;
 
 @Controller
 public class StudentController {
 
-	@Autowired
-     StudentDAO studentDAO;
-	
-	
-@RequestMapping(value = "/addStudent", method =  RequestMethod.POST)
-	public String createStudent (@Valid Student student, BindingResult result, Model model) {
-	if(student !=null ) {
-	
-	model.addAttribute("users", studentDAO.save(student));
-	}
-	 return "addSuccess";
-}
+    public StudentController(StudentDAO studentDAO, SubjectDAO subjectDAO) {
+        this.studentDAO = studentDAO;
+        this.subjectDAO = subjectDAO;
+    }
+@Autowired
+    private StudentDAO studentDAO;
+@Autowired
+    private SubjectDAO subjectDAO;
 
-@RequestMapping(value = "/getStudent")
-@ResponseBody
-public Optional<Student> retrieveStudent (int id){
-	Optional<Student> findOneStudent = studentDAO.findOneStudent(id);
-	return findOneStudent;
-}
+    @RequestMapping(value = "/addStudent", method = RequestMethod.POST)
+    public String createStudent(@Valid Student student, Model model) {
+        if (student != null) {
 
-	/*
-	 * @PostMapping("/update") public String updateStudent(@PathVariable ("id") int
-	 * id, Student s) { return "addSuccess"; }
-	 */
-@GetMapping(value= "/findAllStudent")
-public String findAllStudent(Student s, Model model){
-    List<Student> listCustomer =studentDAO.findAllStudent();
-    model.addAttribute("users", listCustomer);
-    return "displayStudent";
-	
-}
+            model.addAttribute("users", studentDAO.save(student));
+        }
+        return "addSuccess";
+    }
+
+    @RequestMapping(value = "/getStudent/{id}")
+    public String retrieveStudent(@PathVariable Integer id, Model model) {
+        Optional<Student> findOneStudent = studentDAO.findOneStudent(id);
+        findOneStudent.ifPresent(o -> model.addAttribute("users", o));
+        //model.addAttribute("users", findOneStudent);
+        return "displayStudent";
+    }
+
+    @GetMapping(value = "/findAllStudent/classYear")
+    public String findAllStudentByClass(Model model, String classYear) {
+        List<Student> listCustomer = studentDAO.findAllStudentByClass(classYear);
+        model.addAttribute("users", listCustomer);
+        return "displayStudent";
+    }
+
+    @GetMapping(value = "/findAllStudent/firstName")
+    public String findAllStudentByFirstName(Model model, String firstName) {
+        List<Student> listCustomer = studentDAO.findAllStudentByFirstName(firstName);
+        model.addAttribute("users", listCustomer);
+        return "displayStudent";
+    }
+
+    @RequestMapping(value = "/addMark", method = RequestMethod.POST)
+    private String addMark(@Valid Subject subject, Model model){
+        model.addAttribute("subject", subjectDAO.save(subject));
+        return "markSheet";
+    }
+
+    @RequestMapping(value = "/markform", method = RequestMethod.GET)
+    public String addMark() {
+        return "markForm";
+    }
 }

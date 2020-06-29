@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Spring Boot + JPA + Datatables</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+
+</head>
+<body>
+myTable is here:
+
+
+<table id = "myTable" class = "display">
+    <thead>
+    <tr>
+        <th>Roll Number</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>E-mail</th>
+        <th>phone</th>
+        <th>Date Of Birth</th>
+        <th>Class</th>
+        <th>gender</th>
+        <th>Admission Year</th>
+        <th>admin</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+</table>
+<script>
+    $(document).ready( function () {
+        var table = $('#myTable').DataTable({
+            "sAjaxSource": "/queryByPage",
+            'contentType': 'application/json',
+            "sAjaxDataProp": "",
+            "aoColumns": [
+                { mData: 'id' },
+                { mData: 'firstName' },
+                { mData: 'lastName' },
+                { mData: 'birthdate' },
+                { mData: 'gender' },
+                { mData: 'email' },
+                { mData: 'phoneNumber' },
+                { mData: 'classYear' },
+                { mData: 'batchYear' },
+                { mData: 'admin' }
+            ]
+        })
+    });
+</script>
+</body>
+</html>

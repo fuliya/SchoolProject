@@ -1,0 +1,16 @@
+version: '2'
+services:
+  db:
+    image: mysql:5.6.48
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=schooldb
+      - MYSQL_USER=sa
+      - MYSQL_PASSWORD=password
+    volumes:
+      - /data/mysql
+    container_name: school-mysql
+
+
