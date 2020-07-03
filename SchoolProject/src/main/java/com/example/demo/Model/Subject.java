@@ -6,38 +6,50 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "subject")
-@Component
 public class Subject {
+    public Subject() {
+    }
+
     public Subject(int id, String math, String english, String meroSeroFero, String meroBatabaran, String meroNepali) {
         this.id = id;
         this.math = math;
         this.english = english;
+
         this.meroSeroFero = meroSeroFero;
         this.meroBatabaran = meroBatabaran;
         this.meroNepali = meroNepali;
-    }
-
-    public Subject() {
-
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-  /*  @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id", referencedColumnName = "id")
-    private Student student;*/
+@ManyToOne
+@JoinColumn(name= "student_id")
+private Student student;
 
     private String math;
     private String english;
     private String meroSeroFero;
     private String meroBatabaran;
     private String meroNepali;
+
+    public int getStudentID() {
+        return studentID;
+    }
+
+    public void setStudentID(int studentID) {
+        this.studentID = studentID;
+    }
+
+    private transient int studentID;
 
 
     public int getId() {
@@ -71,6 +83,14 @@ public class Subject {
 
     public void setMeroSeroFero(String meroSeroFero) {
         this.meroSeroFero = meroSeroFero;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
     public String getMeroBatabaran() {

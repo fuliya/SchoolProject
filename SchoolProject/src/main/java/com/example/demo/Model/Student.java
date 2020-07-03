@@ -1,33 +1,35 @@
 package com.example.demo.Model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.stereotype.Component;
 
+import java.util.Set;
+
 @Entity
-@Table(name = "student")
-@EntityListeners(AuditingEntityListener.class)
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@Component
+
 public class Student {
 
 
     public Student() {
-        super();
     }
 
-    public Student(int id, String firstName, String lastName, String birthdate, String gender, String email,
+    public Student(int id,String firstName, String lastName, String birthdate, String gender, String email,
                    String phoneNumber, String classYear, int batchYear) {
-        super();
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -49,7 +51,7 @@ public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id")
+	@Column(name = "student_id")
     private int id;
 
     @Column(name = "first_name")
@@ -67,6 +69,31 @@ public class Student {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "phone_number")
+
+    private String phoneNumber;
+
+    @Column(name = "class_year")
+    private String classYear;
+
+    public Set<Subject> getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Set<Subject> subject) {
+        this.subject = subject;
+    }
+
+    @Column(name = "batch_year")
+
+    private int batchYear;
+
+    private boolean isAdmin;
+
+    @OneToMany(targetEntity = Subject.class, mappedBy = "student", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private Set<Subject> subject;
+
     public int getBatchYear() {
         return batchYear;
     }
@@ -75,17 +102,6 @@ public class Student {
         this.batchYear = batchYear;
     }
 
-    @Column(name = "phone_number")
-
-    private String phoneNumber;
-
-    @Column(name = "class_year")
-    private String classYear;
-
-    @Column(name = "batch_year")
-    private int batchYear;
-
-    private boolean isAdmin;
 
     public boolean isAdmin() {
         return isAdmin;

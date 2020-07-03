@@ -88,6 +88,8 @@
             <th>Class</th>
             <th>gender</th>
             <th>Admission Year</th>
+            <th>Action</th>
+
         </tr>
         </thead>
         <tbody>
@@ -109,7 +111,12 @@
                     { mData: 'email', "width": "1%" },
                     { mData: 'phoneNumber', "width": "1%" },
                     { mData: 'classYear', "width": "1%" },
-                    { mData: 'batchYear', "width": "1%" }
+                    { mData: 'batchYear', "width": "1%" },
+                    {
+                        "render": function (mdata, type, full, meta) {
+                            return '<a href="/registration">Edit</a>';
+                        }
+                    }
                 ]
             })
         });
